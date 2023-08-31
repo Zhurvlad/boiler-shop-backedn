@@ -1,5 +1,6 @@
 import {ApiProperty} from '@nestjs/swagger';
 import {faker} from '@faker-js/faker'
+import {Op} from 'sequelize';
 
 class BoilerParts {
     @ApiProperty({example: 1})
@@ -49,7 +50,7 @@ class BoilerParts {
 }
 
 export class PaginateAndFilterResponse {
-    @ApiProperty({example:10})
+    @ApiProperty({example: 10})
     count: number
 
     @ApiProperty({type: BoilerParts, isArray: true})
@@ -57,8 +58,7 @@ export class PaginateAndFilterResponse {
 }
 
 
-
-export class Bestsellers extends BoilerParts{
+export class Bestsellers extends BoilerParts {
     @ApiProperty({example: true})
     bestseller: boolean
 }
@@ -72,9 +72,7 @@ export class GetBestsellersResponse extends PaginateAndFilterResponse {
 }
 
 
-
-
-export class NewParts extends BoilerParts{
+export class NewParts extends BoilerParts {
     @ApiProperty({example: true})
     new: boolean
 }
@@ -88,43 +86,53 @@ export class GetNewResponse extends PaginateAndFilterResponse {
 }
 
 
-export class SearchByLetterResponse extends BoilerParts{
+export class SearchByLetterResponse extends BoilerParts {
     @ApiProperty({example: 'boris'})
     name: string
 }
-export class SearchResponse extends PaginateAndFilterResponse{
+
+export class SearchResponse extends PaginateAndFilterResponse {
     @ApiProperty({type: SearchByLetterResponse, isArray: true})
     rows: SearchByLetterResponse
 }
+
 export class SearchRequest {
     @ApiProperty({example: 'b'})
     search: string
 }
 
 
-
-
-export class GetByNameResponse extends BoilerParts{
+export class GetByNameResponse extends BoilerParts {
     @ApiProperty({example: 'boris'})
     name: string
 }
+
 export class GetByNameRequest {
     @ApiProperty({example: 'boris'})
     name: string
 }
 
 
+export class FindOneResponse extends BoilerParts {
+}
 
-
-export class FindOneResponse extends BoilerParts{}
 export class FindOneRequest {
     @ApiProperty({example: 22})
     id: number
 }
 
 
-
 export interface IBoilerPartsQuery {
     limit: string,
-    offset: string
+    offset: string,
+    boiler: string | undefined,
+    parts: string | undefined,
+    priceFrom: string | undefined
+    priceTo: string | undefined
+}
+
+export interface IBoilerPartsFilter {
+    boiler_manufacturer: string | undefined,
+    parts_manufacturer: string | undefined,
+    price: { [Op.between]: number[] }
 }
