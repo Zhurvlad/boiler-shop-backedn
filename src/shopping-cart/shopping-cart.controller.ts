@@ -44,7 +44,7 @@ export class ShoppingCartController {
     @UseGuards(AuthenticatedGuard)
     @Patch('/total-price/:id')
     updateTotalPrice(@Body() {total_price}: {total_price: number}, @Param('id') partId: string){
-        return this.shoppingCartService.updateCount(total_price, partId)
+        return this.shoppingCartService.updateTotalPrice(total_price, partId)
     }
 
 
