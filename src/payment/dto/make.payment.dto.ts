@@ -7,3 +7,4 @@ export class MakePaymentDto {
     @IsNotEmpty()
     readonly amount: number
 }
+
