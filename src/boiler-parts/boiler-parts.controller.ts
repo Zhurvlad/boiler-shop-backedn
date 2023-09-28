@@ -38,7 +38,6 @@ export class BoilerPartsController {
     }
 
     @ApiOkResponse({type: GetNewResponse})
-    @ApiBody({type: GetByNameRequest})
     @UseGuards(AuthenticatedGuard)
     @Get('new')
     getNew(){
